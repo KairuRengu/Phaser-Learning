@@ -35,18 +35,21 @@
 
       var platforms;
 
-         function create ()
-         {
-             this.add.image(400, 300, 'sky');
+      function create(){
+        //note Phaser places images based on the center point of an image.
+        //Best order to place things: background is loaded first, then everything on top
+        this.add.image(400, 300, 'sky');
 
-             platforms = this.physics.add.staticGroup();
+        platforms = this.physics.add.staticGroup();
 
-             platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        //platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        platforms.create(600, 400, 'ground');
+        platforms.create(50, 250, 'ground');
+        platforms.create(750, 220, 'ground');
 
-             platforms.create(600, 400, 'ground');
-             platforms.create(50, 250, 'ground');
-             platforms.create(750, 220, 'ground');
-         }
+
+      }
       function update(){
 
       }
