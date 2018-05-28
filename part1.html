@@ -50,8 +50,10 @@
         platforms.create(750, 220, 'ground');
 
         player = this.physics.add.sprite(100, 450, 'dude');
+        //makes it so that the player bounces when it collides with objects
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
+        //Creates the animations for left, right and turning
         this.anims.create({
           key: 'left',
           frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3}),
@@ -69,6 +71,9 @@
           frameRate: 10,
           repeat: -1
         });
+
+        //add collider
+        this.physics.add.collider(player, platforms);
       }
       function update(){
 
