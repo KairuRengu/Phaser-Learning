@@ -8,7 +8,7 @@ let config ={
 
 let game = new Phaser.Game(config);
 gameScene.init = function(){
-  this.playerspeed = 1.5;
+  this.playerSpeed = 1.5;
   this.enemyMaxY = 280;
   this.enemyMinY = 80;
 }
@@ -43,6 +43,23 @@ gameScene.create = function(){
     }
 
   })
+  Phaser.Actions.ScaleXY(this.enemies.getChildren(), -0.5, -0.5);
+  Phaser.Actions.Call(this.enemies.getChildren(), function(enemy){
+    enemy.speed = Math.random() * 2 + 1;
+  },this);
+  this.isPlayerAlive = true;
+}
+
+gameScene.gameOver = function(){
+  this.isPlayerAlive = false;
+  //this.camera.main.shake(500);
+  this.time.delayedCall(250, function(){
+    this.cameras.main.fade(250);
+  },[], this)
+  this.time.delayedCall(500, function(){
+      this.scene.restart();
+  }, [], this)
+
 }
 
 gameScene.update = function(){
@@ -55,7 +72,21 @@ gameScene.update = function(){
     this.gameOver();
   }
   //this restarts the game
-  gameScene.gameOver = function(){
-    this.scene.restart();
+
+  //making the enemies move up and down
+  let enemies = this.enemies.getChildren();
+  let numberOfEnemies = enemies.length;
+  for (var i = 0; i < numberOfEnemies ; i++){
+    enemies[i].y += enemies[i].speed;
+    if(enemies[i].y >= this.enemyMaxY && enemies[i].speed > 0){
+      enemies[i].speed *= -1;
+    }
+    if(enemies[i].y <= this.enemyMinY && enemies[i].speed < 0){
+      enemies[i].speed *= -1;
+    }
+    if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), enemies[i].getBounds())){
+      this.gameOver();
+      break;
+    }
   }
 }
