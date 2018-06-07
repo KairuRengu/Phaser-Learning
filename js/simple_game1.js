@@ -12,6 +12,7 @@ gameScene.init = function(){
   this.enemyMaxY = 280;
   this.enemyMinY = 80;
 }
+
 gameScene.preload = function(){
   this.load.image('background', 'assets/background.png');
   this.load.image('dragon', 'assets/dragon.png');
@@ -52,7 +53,7 @@ gameScene.create = function(){
 
 gameScene.gameOver = function(){
   this.isPlayerAlive = false;
-  //this.camera.main.shake(500);
+  this.cameras.main.shake(500);
   this.time.delayedCall(250, function(){
     this.cameras.main.fade(250);
   },[], this)
