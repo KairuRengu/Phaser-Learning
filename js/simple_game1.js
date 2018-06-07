@@ -17,7 +17,6 @@ gameScene.preload = function(){
   this.load.image('dragon', 'assets/dragon.png');
   this.load.image('player', 'assets/player.png');
   this.load.image('treasure', 'assets/treasure.png');
-
 }
 
 
@@ -27,9 +26,8 @@ gameScene.create = function(){
   this.add.sprite(180,180, 'background');
   let background = this.add.sprite(0,0, 'background');
   background.setOrigin(0,0);
-  this.add.sprite(0,0, 'player');
   this.player = this.add.sprite(40, this.sys.game.config.height / 2, 'player');
-  this.player.setScale(0,5);
+  this.player.setScale(0.5);
   //create the treasure
   this.treasure = this.add.sprite(this.sys.game.config.width - 80, this.sys.game.config.height / 2, 'treasure');
   this.treasure.setScale(0.6);
